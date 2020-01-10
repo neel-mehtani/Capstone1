@@ -5,40 +5,45 @@
 
 ## Motivation
 
-The 2016 election was arguably the most controversial election of all time.  
-
-I decided to mine Twitter data as a start since Twitter has so much data processed every minute to see what kind of information I could uncover about the presidential election.
-
-It's easy to get caught up in slogans and catch phrases and fail to hear the actual message of a campaign.  It's easy to remember #nastywoman and #makeamericagreatagain, but most of us won't remember specific policy promises, if there were any at all.  Because of this, I wanted to explore the meat of campaign speeches and identify the topics that each candidate focuses on the most.  
-
-Additionally, I've met many people who regret not voting in the primaries.  The answer is always the same (excluding laziness) - "I didn't know enough about the politicians and didn't feel I could make an educated decision."  This seems to be common so I wanted to design a program that allowed somebody to make an educated decision and direct them to candidates that better reflect their views.  
-
-
 ## Overview
 
 This project is comprised of 3 parts.  
 
-Part 1: explores data collected through the Twitter API.  
+Part 1: Data Acquistion and Management
 
-Part 2: examines and compares Clinton and Trump campaign speeches.  Bonus: Clintbot and Trumpbot go to Twitter war.  
+Part 2: Feature Integration and EDAs
 
-Part 3: 
+Part 3: Hypotheses Tests
+
 ## Part 1
 
-### Definitions
-Clinton Supporter:  A person who used a hashtag or phrase associated with a Clinton supporter.  Ex. "imwithher" - see `streamingclinton.py`
+### The Data
+
+The data was sourced from UCIs Beijing Multi-Site Air-Quality Data Archive repository. Overall, there were 12 data files, each containing pollutant and climatic data logs for every site used in compiling the data set, split by the hour of every day of a month for the 4 year time span that the dataset recorded. 
+
+Once unzipped, the data was initially aggregated using PySpark modules to provide a basis by which a master dataset could be used to derive new subsets. However, this task was later replaced using Pandas as it provided similar functionality. Any hourly entry that contained N/A values across any of the data features was dropped to keep aggregation simple, without distorting the aggregated attributes by much as the each day contained several hourly records. Due to the chunky size of the data (~420,000 data instances for 12 sites), 6 sites were narrowed down based on their geographical proximity within different parts of Beijing. The chosen sites were: Dongsi, Wanliu, Tiantan, Gucheng, Huariou, and Shunyi.
+
+As mentioned above, the master dataset from which newer relations could be tabulated was developed by splicing the data into different year groups for each site. The yearly categories for these sites were established by parsing in the string values of the day, month, and year of each individual record into datetime objects, which enabled splitting the datetime objects based on year they were acquired in. Thus, the master dataset was combined based on several years' information across various sites. 
+
+With the primary information table being categorized by datetime, new categories such as seasonal months could also be implemented on the data to uncover new categorical relations to some pollution metrics. Multi-level categorization by year and season furthered the project's scope to look into how pollution metrics and standards varied for these parameters across different domains in Beijing based on the sites that were incorporated into the working master data-set, namely: central (Dongsi, Tiantan), mid (Gucheng, Wanliu), and outer-Beijing (Shunyi, Huariou). 
+
+### Features and Attributes
+Pollutant Data:  Physical evidence of various chemical pollutants collected from all sites across a 4 year span. A person who used a hashtag or phrase associated with a Clinton supporter.  Ex. "imwithher" - see `streamingclinton.py`
+
+| Feature  |Attributes     |
+| ------------- |:-------------:|
+| CO | float|
+| SO2| float|
+| NO2 |float|
+| PM 2.5 | float|
+| PM 10|float|
+| O3 |float|
 
 Trump Supporter:  A person who used a hashtag or phrase associated with a Clinton supporter.  Ex. "makeamericagreatagain" - see `streamingtrump.py`
-
-### The Data
-The data was collected from the Twitter streaming API. The files `streamingclinton.py` and `streamingtrump.py` contain the phrases and hasttags that were used to filter the tweets.
-
-I collected tweets for a couple hours everyday for 5 days during the last week of October.  The tweets were stored in a json file and then processed using natural language processing tools and TFIDF.
-
-The tweets were then filtered to users who had active Twitter accounts before 2016 and who posted fewer than 20 times over the 5 day collection period.  My goal was to eliminate the "crazies" and get a more accurate representation of a typical Clinton tweeter and typical Trump tweeter.  
-
-
 ### Observations
+
+
+
 Twitter data is incredibly messy and twitter users tend to use hashtags generously.  A hashtag is not always a good indication that a person is a Clinton or Trump supporter.
 
 For the same time period I collected 5.70 GB of data for Trump and 1.34 GB of data for Clinton.
