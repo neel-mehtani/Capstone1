@@ -1,1 +1,15 @@
+# Outline
+1. [Unsupervised Learning](#1Unsupervised Learning)
+2. [Exoplanets](#2Exoplanets)
+3. [Data Challenges](#3Data Challenges)
+4. [Methodology](#4Methodology)
+    * [4.1 Data Downloading and Preparation](#4_1 Data Downloading and Preparation)
+    * [4.2 Imputation of Missing Data](#4_2 Imputation of Missing Data)
+    * [4.3 Automatic Feature Selection](#4_3 Automatic Feature Selection)
+    * [4.4 Creation of Clusters](#4_4 Creation of Clusters)
+    * [4.5 Dimensionality Reduction](#4_5 Dimensionality Reduction)
+    * [4.6 Visualization](#4_6 Visualization)
+5. [Major Results and Interpretation](#5 Major Results and Interpretation)
+6. [Future work](#6Future work)
+7. [Tools Used](#7Tools Used)
 
