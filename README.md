@@ -106,23 +106,6 @@ Furthermore, the domain categorization not only allowed a depiction of how AQI i
 
 ![alt text](/pollcount4_domain.png)
 
-### Twitter Bots
-Based on the campaign speeches and debate transcripts, I created a Twitter bot for both Clinton and Trump.  The vocabulary for each candidate was constructed from the collected the collected speech and debate transcripts .
-
-The tweet generation model uses the Markov model where the following word is based on the preceding trigram.
-
-Clinton's dictionary consists of 142,523 unique trigrams.
-Trump's dictionary consists of 149,892 unique trigrams.
-
-
-I then collected hashtags from Clinton's and Trump's historical tweets using Twitter's REST API.  I collected the most commonly used hashtags from each candidate and then randomly added one, two or none to the generated tweet.
-
-
- I started the debate by tweeting the other candidate online and then the bots tweeted back and forth to each other every 3 minutes.   Each tweet was stored in an SQL database and when that database was updated, the corresponding bot knew to tweet back and used the words from the most recent tweet as the input for the response tweet.
-
-I then decided to do a social experiment. From the data collected in part 1, I randomly selected a user to tag.  My initial goal was to see how many followers I could obtain in the remaining week.  Unfortunately after I started going this, I was quickly suspended from using Twitter's API.
-
-
 ## Part 3
 
 ### Hypothesis Testing
