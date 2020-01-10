@@ -92,21 +92,19 @@ Following from the initial heatmap relational matrix, the correlation between CO
 
 ![alt text](/cap1_graphs1.png)
 
-#### Tweets
-Additionaly, I collected 3,200 (Twitter's max from the REST API) historical tweets from Clinton and Trump and saved the hashtags.  
+Following this, the site level trends were combined into distinct domains of Outer, Mid, and Central Beijing. The average % change in AQI PM2.5 levels were computed and their trends were followed to capture how AQI levels varied over time based on distinct domain categorizations and see how these related to the overall picture. 
 
-#### User Tags
-The screen names from Clinton tweeters and Trump tweeters were stored in a separate file from part 1.
+![alt text](/aqi_domain_changes.png)
 
-### Clustering
-I used TFIDF and an NMF model to create topic clusters.  Note that the colors do not have any specific meaning.  They were just meant to highlight topics of interest.
-![alt text](/images/termiteplots.png)
-Clinton spent a lot of time on the campaign trail targeting minority groups.  She spoke to many African American communities, women’s organizations and veterans, which you can see highlighted here. Trump’s topics are less defined but we can see some topics on the economy and national defense.
+Furthermore, the domain categorization not only allowed a depiction of how AQI indices changed relatively over the years, but indeed allowed us to track how the frequency of various standards of air quality changed in each of these regions over the seasons each year. 
 
-With a little more filtering Clinton’s topic change slightly, but are still clearly defined.  The topics are less clear for Trump. Immigration jumps out, but the other topics tend to fall apart.  This may be an indication of why the Trump campaign wouldn’t publish the actual transcripts.
-![alt text](/images/termiteplots2.png)
+![alt text](/pollcount1_domain.png)
 
+![alt text](/pollcount2_domain.png)
 
+![alt text](/pollcount3_domain.png)
+
+![alt text](/pollcount4_domain.png)
 
 ### Twitter Bots
 Based on the campaign speeches and debate transcripts, I created a Twitter bot for both Clinton and Trump.  The vocabulary for each candidate was constructed from the collected the collected speech and debate transcripts .
@@ -125,33 +123,40 @@ I then collected hashtags from Clinton's and Trump's historical tweets using Twi
 I then decided to do a social experiment. From the data collected in part 1, I randomly selected a user to tag.  My initial goal was to see how many followers I could obtain in the remaining week.  Unfortunately after I started going this, I was quickly suspended from using Twitter's API.
 
 
-![alt text](/images/twitterwar.png)
-
-
-https://twitter.com/KillaryHilton_
-https://twitter.com/TonaldDrump___
-
-
 ## Part 3
 
-### The Data
-The textacy library has a corpus that contains over 11,000 congressional speeches (1996-2016) from 13 different congress people involved in the 2016 election. The congress people recommendations are limited to the following people:
+### Hypothesis Testing
+
+#### Variation in Pollution Standard Frequency
+
+With my data categorized by the various seasons for each year, the data could further be parsed into categories of cold months [Fall and Winter seasons] and warmer months [Summer and Spring seasons]. Under these segments, the counts of days of different pollution standards could be compiled and examined against one another.
+
+A simple hypothesis that could be postulated against this data would be that there is no difference in the frequency of 'Good' (i.e. safe) air quality days between the cold and warm months. This requires a simple two sample test of proportion of good days in each sample category. Therefore, the null and alt hypotheses would be:
+
+Null Hyp (H0): cold['good count'] = warm['good count'] 
+
+Alt Hyp (Ha): cold['good count'] != warm['good count']
 
 
-| Republicans   |Democrats      | Independents |
-| ------------- |:-------------:| -----:|
-| Marco Rubio   | Bernie Sanders | Jim Webb |
-| Ted Cruz    | Barack Obama     |    |
-| Rand Paul | Hillary Clinton      |   |
-| Mike Pence | Joe Biden    |     |
-| Lindsey Graham |Lincoln Chafee   |    |
-| John Kasich |       |     |
-| Rick Santorum |      |     |   |
+After averaging the numbers from all seasons for all years, the basis of the hypothesis test was constructed off of these numbers:
 
-The model uses TFIDF and a Naive Bayes model to find the probability that specific keywords are from a particular party or candidate.  The model only focuses on nouns, verbs and adjectives.  I hope to add a sentiment component in the future.  
+![alt text](/hyptest1_numbers.png)
 
-Example output:
-![alt text](/images/website.png)
+shared_sample_var = 0.0010456477313459237
+
+shared_sample_freq = 0.09516616314199396
+
+good_day_difference = 0.02846870643480813
+
+p_value = 1 - difference_in_proportions.cdf(good_day_difference)
+p_value = 0.189
+
+The rejection threshold (alpha): 0.05. 
+
+Since the p_value > 0.05, we fail to reject the H0 (null hyp). Therefore we say that there is statistical evidence to show a relevant difference in the frequency of good days between cold and warm months. 
 
 
-The web app was created through Flask and can be accessed at:  www.discovercongress.co
+
+
+
+
