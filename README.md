@@ -1,6 +1,6 @@
 # Beijing Air Quality Metrics
 
-![alt text](/images/trump_clinton.png)
+![alt text](//.png)
 
 
 ## Motivation
@@ -28,20 +28,47 @@ As mentioned above, the master dataset from which newer relations could be tabul
 With the primary information table being categorized by datetime, new categories such as seasonal months could also be implemented on the data to uncover new categorical relations to some pollution metrics. Multi-level categorization by year and season furthered the project's scope to look into how pollution metrics and standards varied for these parameters across different domains in Beijing based on the sites that were incorporated into the working master data-set, namely: central (Dongsi, Tiantan), mid (Gucheng, Wanliu), and outer-Beijing (Shunyi, Huariou). 
 
 ### Features and Attributes
-Pollutant Data:  Physical evidence of various chemical pollutants collected from all sites across a 4 year span. A person who used a hashtag or phrase associated with a Clinton supporter.  Ex. "imwithher" - see `streamingclinton.py`
+Pollutant Data:  Physical evidence of various chemical pollutants collected from all sites across a 4 year span. 
 
-| Feature  |Attributes     |
+| Feature  |Type     |
 | ------------- |:-------------:|
-| CO | float|
-| SO2| float|
+| CO |float|
+| SO2 |float|
 | NO2 |float|
-| PM 2.5 | float|
+| PM 2.5 |float|
 | PM 10|float|
 | O3 |float|
 
-Trump Supporter:  A person who used a hashtag or phrase associated with a Clinton supporter.  Ex. "makeamericagreatagain" - see `streamingtrump.py`
+Meteorological Data: Recorded metrics of meteorological information from all sites across a 4 year span relating climatic properties to pollution.  
+
+| Feature  |Type     |
+| ------------- |:-------------:|
+| WSPM |float|
+| TEMP |float|
+| DEWP |float|
+| PRES |float|
+| RAIN |float|
+
+
+Computed Features: The following features were inserted either into the master dataset or in subset tables based on either quick numerical calculation or categorization. 
+
+| Feature  |Type     |
+| ------------- |:-------------:|
+| date |datetime|
+| Season | string|
+| Climate | string |
+| AQI PM2.5| float|
+| AQI PM10 |float|
+| AQI Level | string |
+
+
+
+
+
+
 ### Observations
 
+Due to the vast number of data features that the dataset handles, the initial step was to identify what were the underlying correlations between the data features. This was better understood by implementing Seaborn's .heatmap() visualization tool to identify the correlation coefficients between the various metrics. 
 
 
 Twitter data is incredibly messy and twitter users tend to use hashtags generously.  A hashtag is not always a good indication that a person is a Clinton or Trump supporter.
@@ -52,9 +79,6 @@ Twitter allows its users to write their own user descriptions.  The following wo
 ![alt text](/images/combined_twitter.png)
 
 Even though Clinton and Trump supporters have drastically different views, the way a person describes him/herself is surprisingly similar.  It is also surprising that with all the hateful election rhetoric floating around on Twitter that the most common used word in a user description is actually "love."
-
-
-
 
 ## Part 2
 
