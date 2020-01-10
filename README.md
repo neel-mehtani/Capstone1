@@ -1,6 +1,6 @@
 # Beijing Air Quality Metrics
 
-![alt text](//.png)
+![alt text](/beijing_wallpaper.jpg)
 
 
 ## Motivation
@@ -55,57 +55,48 @@ Computed Features: The following features were inserted either into the master d
 | Feature  |Type     |
 | ------------- |:-------------:|
 | date |datetime|
-| Season | string|
-| Climate | string |
 | AQI PM2.5| float|
 | AQI PM10 |float|
 | AQI Level | string |
+| Season | string|
+| Climate | string |
+| Wind | string |
 
+### Feature Relations
 
+Due to the vast number of data features that the dataset handles, the initial step was to identify some of the underlying correlations between the data features. This was better understood by implementing Seaborn's .heatmap() visualization tool to identify the correlation coefficients between the various metrics. 
 
+![alt text](/cap1_heatmap.png)
 
+The heatmap matrix clearly indicates highest positive correlations between pollutant data features as opposed to the climatic data features, serving as an initial pointer to some relevant data insights. 
 
-
-### Observations
-
-Due to the vast number of data features that the dataset handles, the initial step was to identify what were the underlying correlations between the data features. This was better understood by implementing Seaborn's .heatmap() visualization tool to identify the correlation coefficients between the various metrics. 
-
-
-Twitter data is incredibly messy and twitter users tend to use hashtags generously.  A hashtag is not always a good indication that a person is a Clinton or Trump supporter.
-
-For the same time period I collected 5.70 GB of data for Trump and 1.34 GB of data for Clinton.
-
-Twitter allows its users to write their own user descriptions.  The following wordclouds were produced from Clinton supporter's user descriptions and Trump supporter's user descriptions.  
-![alt text](/images/combined_twitter.png)
-
-Even though Clinton and Trump supporters have drastically different views, the way a person describes him/herself is surprisingly similar.  It is also surprising that with all the hateful election rhetoric floating around on Twitter that the most common used word in a user description is actually "love."
 
 ## Part 2
 
-### The Data
+### Feature Integration and EDAs
 
-#### Speeches and Debates
-Campaign speeches and presidential debates were used in doing this analysis.
+#### AQI Indices and Categories
 
-The speeches and debate transcripts were collected from a variety of sources:
+The most prevalent computed-data metric in this project was the air quality index (AQI). The AQI is a standard pollution level metric measured on the basis of the concentration of particulate matter pollutants, namely PM 2.5 and PM 10. These indices were calculated for everyday of air quality recorded across all sites. AQI index values fall into specific pollution level standards based on the numerical range in which the index value falls. The computation and categorization are as follows: 
 
-All speeches collected were given in 2016.  
+![alt text](/aqi_equation.png)
 
-It is also important to note that the official Trump campaign site did not publish Trump's actual campaign speeches so all of Trump's speeches came from third party sources.
+![alt text](/aqi_categories.png)
 
+Using the yearly definitions of data entries from the master dataset, the AQI PM2.5 distribution was tracked over the years, between 2013-2017. 
+
+![alt text](/aqi_boxplots.png)
+
+On a finer level, the AQI index level trends for each site were also captured on a yearly basis on a trend-line graph, so as to gain an understanding of how these box distributions were constituted from the individual sites used for metric analysis. 
+Following from the initial heatmap relational matrix, the correlation between CO and the AQI PM2.5 was tracked over the years to see if there was a prevalent change in pollutant correlation in tandem with the AQI indices trends that each site exhibited.
+
+![alt text](/cap1_graphs1.png)
 
 #### Tweets
 Additionaly, I collected 3,200 (Twitter's max from the REST API) historical tweets from Clinton and Trump and saved the hashtags.  
 
 #### User Tags
 The screen names from Clinton tweeters and Trump tweeters were stored in a separate file from part 1.
-
-
-### Wordclouds
-The following wordclouds represent the most commonly used words in the campaign speeches.  The top two charts have no filtering and the bottom two charts only pull adjectives and nouns and eliminate the most commonly used words such as "people" and "American".
-![alt text](/images/wordclouds.png)
-
-
 
 ### Clustering
 I used TFIDF and an NMF model to create topic clusters.  Note that the colors do not have any specific meaning.  They were just meant to highlight topics of interest.
