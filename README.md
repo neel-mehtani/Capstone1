@@ -52,15 +52,15 @@ Meteorological Data: Recorded metrics of meteorological information from all sit
 
 Computed Features: The following features were inserted either into the master dataset or in subset tables based on either quick numerical calculation or categorization. 
 
-| Feature  |Type     |
-| ------------- |:-------------:|
-| date |datetime|
-| AQI PM2.5| float|
-| AQI PM10 |float|
-| AQI Level | string |
-| Season | string|
-| Climate | string |
-| Wind | string |
+| Feature  |Type     | Age |
+| ------------- |-------------|:--------:|
+| date | datetime| 15 |
+| AQI PM2.5| float| 15 |
+| AQI PM10 |float| 15 |
+| AQI Level | string | 15 |
+| Season | string| 15 |
+| Climate | string | 15 |
+| Wind | string | 15 |
 
 ### Feature Relations
 
